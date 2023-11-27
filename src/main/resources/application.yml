@@ -1,0 +1,10 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    root: info
+
+books:
+  host: ${BOOKS_HOST}
+  basePathV1: ${books.host}
