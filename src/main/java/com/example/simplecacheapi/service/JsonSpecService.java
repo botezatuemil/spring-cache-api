@@ -5,6 +5,7 @@ import com.example.simplecacheapi.model.JsonSpec;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,7 +27,14 @@ public class JsonSpecService {
     @Autowired
     public JsonSpecService (RestTemplate restTemplate) { this.restTemplate = restTemplate; }
 
+    @Cacheable("spec")
     public JsonSpec fetchJsonSpec(final Categories categories) {
+
+        try {
+            Thread.sleep(3000L);
+        } catch (InterruptedException e) {
+            throw  new IllegalStateException(e);
+        }
         HttpHeaders httpHeaders = new HttpHeaders();
 
         final Map<String, Object> uriVariables = new HashMap<>();
